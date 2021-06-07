@@ -1,3 +1,4 @@
+import os
 import sqlite3
 
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
@@ -18,6 +19,14 @@ def get_post(post_id):
     post = connection.execute('SELECT * FROM posts WHERE id = ?', (post_id,)).fetchone()
     connection.close()
     return post
+
+
+# Function to get the amount of posts in the database
+def get_post_count():
+    connection = get_db_connection()
+    post_count = connection.execute('SELECT Count() FROM posts').fetchone()[0]
+    connection.close()
+    return post_count
 
 
 # Define the Flask application
@@ -80,6 +89,15 @@ def healthz():
     )
 
     return response
+
+
+@app.route('/metrics')
+def metrics():
+    stream = os.popen('lsof database.db | grep python')
+    db_connection_count = len(stream.readlines())
+    post_count = get_post_count()
+
+    return jsonify(db_connection_count=db_connection_count, post_count=post_count)
 
 
 # start the application on port 3111
