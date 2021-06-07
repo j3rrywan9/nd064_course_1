@@ -1,3 +1,4 @@
+import logging
 import os
 import sqlite3
 
@@ -49,14 +50,17 @@ def index():
 def post(post_id):
     post = get_post(post_id)
     if post is None:
+        app.logger.info('A non-existing article is accessed')
         return render_template('404.html'), 404
     else:
+        app.logger.info('Article "{}" retrieved!'.format(post['title']))
         return render_template('post.html', post=post)
 
 
 # Define the About Us page
 @app.route('/about')
 def about():
+    app.logger.info('The "About Us" page is retrieved.')
     return render_template('about.html')
 
 
@@ -74,6 +78,7 @@ def create():
             connection.execute('INSERT INTO posts (title, content) VALUES (?, ?)', (title, content))
             connection.commit()
             connection.close()
+            app.logger.info('Article "{}" created!'.format(title))
 
             return redirect(url_for('index'))
 
@@ -102,4 +107,6 @@ def metrics():
 
 # start the application on port 3111
 if __name__ == "__main__":
+    logging.basicConfig(format='[%(asctime)s] %(levelname)s in %(module)s: %(message)s', level=logging.DEBUG)
+
     app.run(host='0.0.0.0', port='3111')
