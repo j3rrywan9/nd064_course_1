@@ -1,5 +1,4 @@
 import logging
-import os
 import sqlite3
 import sys
 
@@ -20,6 +19,8 @@ def get_post(post_id):
     connection = get_db_connection()
     post = connection.execute('SELECT * FROM posts WHERE id = ?', (post_id,)).fetchone()
     connection.close()
+    global db_connection_count
+    db_connection_count += 1
     return post
 
 
@@ -28,6 +29,8 @@ def get_post_count():
     connection = get_db_connection()
     post_count = connection.execute('SELECT Count() FROM posts').fetchone()[0]
     connection.close()
+    global db_connection_count
+    db_connection_count += 1
     return post_count
 
 
@@ -37,12 +40,17 @@ app.config['SECRET_KEY'] = 'your secret key'
 
 logger = app.logger
 
+db_connection_count = 0
+
+
 # Define the main route of the web application 
 @app.route('/')
 def index():
     connection = get_db_connection()
     posts = connection.execute('SELECT * FROM posts').fetchall()
     connection.close()
+    global db_connection_count
+    db_connection_count += 1
     return render_template('index.html', posts=posts)
 
 
@@ -80,6 +88,8 @@ def create():
             connection.execute('INSERT INTO posts (title, content) VALUES (?, ?)', (title, content))
             connection.commit()
             connection.close()
+            global db_connection_count
+            db_connection_count += 1
             logger.info('Article "{}" created!'.format(title))
 
             return redirect(url_for('index'))
@@ -100,8 +110,6 @@ def healthz():
 
 @app.route('/metrics')
 def metrics():
-    stream = os.popen('lsof database.db | grep python')
-    db_connection_count = len(stream.readlines())
     post_count = get_post_count()
 
     return jsonify(db_connection_count=db_connection_count, post_count=post_count)
