@@ -1,6 +1,7 @@
 import logging
 import os
 import sqlite3
+import sys
 
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
@@ -34,6 +35,7 @@ def get_post_count():
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your secret key'
 
+logger = app.logger
 
 # Define the main route of the web application 
 @app.route('/')
@@ -50,17 +52,17 @@ def index():
 def post(post_id):
     post = get_post(post_id)
     if post is None:
-        app.logger.info('A non-existing article is accessed')
+        logger.info('A non-existing article is accessed')
         return render_template('404.html'), 404
     else:
-        app.logger.info('Article "{}" retrieved!'.format(post['title']))
+        logger.info('Article "{}" retrieved!'.format(post['title']))
         return render_template('post.html', post=post)
 
 
 # Define the About Us page
 @app.route('/about')
 def about():
-    app.logger.info('The "About Us" page is retrieved.')
+    logger.info('The "About Us" page is retrieved.')
     return render_template('about.html')
 
 
@@ -78,7 +80,7 @@ def create():
             connection.execute('INSERT INTO posts (title, content) VALUES (?, ?)', (title, content))
             connection.commit()
             connection.close()
-            app.logger.info('Article "{}" created!'.format(title))
+            logger.info('Article "{}" created!'.format(title))
 
             return redirect(url_for('index'))
 
@@ -107,6 +109,20 @@ def metrics():
 
 # start the application on port 3111
 if __name__ == "__main__":
-    logging.basicConfig(format='[%(asctime)s] %(levelname)s in %(module)s: %(message)s', level=logging.DEBUG)
+    # create STDOUT and STDERR stream handlers
+    stdout_handler, stderr_handler = logging.StreamHandler(sys.stdout), logging.StreamHandler(sys.stderr)
+    # set log level to DEBUG
+    stdout_handler.setLevel(logging.DEBUG)
+    stderr_handler.setLevel(logging.DEBUG)
+    # create formatters and add them to the handlers
+    formatter1 = logging.Formatter('[%(asctime)s] %(levelname)s in %(module)s: STDOUT: %(message)s')
+    formatter2 = logging.Formatter('[%(asctime)s] %(levelname)s in %(module)s: STDERR: %(message)s')
+    stdout_handler.setFormatter(formatter1)
+    stderr_handler.setFormatter(formatter2)
+    # add the handlers to the logger
+    logger.addHandler(stdout_handler)
+    logger.addHandler(stderr_handler)
+    # set root logger log level to DEBUG
+    logging.getLogger().setLevel(logging.DEBUG)
 
     app.run(host='0.0.0.0', port='3111')
