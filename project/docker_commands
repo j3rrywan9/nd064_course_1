@@ -8,21 +8,24 @@ docker run -d -p 7111:3111 techtrends
 
 ## Docker commands used to get the application logs
 # TODO: insert the docker logs command
-docker logs -f c6c13458ed39
+docker logs -f beb75b8c626e
 
 ## Logs from the container running the TechTrends application
 # TODO: paste logs from the Docker container 
-[2021-06-07 22:01:36,049] INFO in _internal:  * Running on http://0.0.0.0:3111/ (Press CTRL+C to quit)
-[2021-06-07 22:02:02,740] INFO in _internal: 172.17.0.1 - - [07/Jun/2021 22:02:02] "GET / HTTP/1.1" 200 -
-[2021-06-07 22:02:06,073] INFO in app: Article "2020 CNCF Annual Report" retrieved!
-[2021-06-07 22:02:06,076] INFO in _internal: 172.17.0.1 - - [07/Jun/2021 22:02:06] "GET /1 HTTP/1.1" 200 -
-[2021-06-07 22:02:08,913] INFO in app: The "About Us" page is retrieved.
-[2021-06-07 22:02:08,915] INFO in _internal: 172.17.0.1 - - [07/Jun/2021 22:02:08] "GET /about HTTP/1.1" 200 -
-[2021-06-07 22:02:14,318] INFO in _internal: 172.17.0.1 - - [07/Jun/2021 22:02:14] "GET /healthz HTTP/1.1" 200 -
-[2021-06-07 22:02:20,050] INFO in _internal: 172.17.0.1 - - [07/Jun/2021 22:02:20] "GET /metrics HTTP/1.1" 200 -
-[2021-06-07 22:02:27,997] INFO in app: A non-existing article is accessed
-[2021-06-07 22:02:27,999] INFO in _internal: 172.17.0.1 - - [07/Jun/2021 22:02:27] "GET /11 HTTP/1.1" 404 -
-[2021-06-07 22:02:37,067] INFO in _internal: 172.17.0.1 - - [07/Jun/2021 22:02:37] "GET /create HTTP/1.1" 200 -
-[2021-06-07 22:02:51,950] INFO in app: Article "test title 1" created!
-[2021-06-07 22:02:51,952] INFO in _internal: 172.17.0.1 - - [07/Jun/2021 22:02:51] "POST /create HTTP/1.1" 302 -
-[2021-06-07 22:02:51,960] INFO in _internal: 172.17.0.1 - - [07/Jun/2021 22:02:51] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [10/Jun/2021 21:50:49] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [10/Jun/2021 21:50:49] "GET /static/css/main.css HTTP/1.1" 304 -
+172.17.0.1 - - [10/Jun/2021 21:50:49] "GET /favicon.ico HTTP/1.1" 404 -
+[2021-06-10 21:51:16,141] INFO in app: Article "2020 CNCF Annual Report" retrieved!
+[2021-06-10 21:51:16,141] INFO in app: STDOUT: Article "2020 CNCF Annual Report" retrieved!
+[2021-06-10 21:51:16,141] INFO in app: STDERR: Article "2020 CNCF Annual Report" retrieved!
+172.17.0.1 - - [10/Jun/2021 21:51:16] "GET /1 HTTP/1.1" 200 -
+[2021-06-10 21:51:24,112] INFO in app: A non-existing article is accessed
+[2021-06-10 21:51:24,112] INFO in app: STDERR: A non-existing article is accessed
+[2021-06-10 21:51:24,112] INFO in app: STDOUT: A non-existing article is accessed
+172.17.0.1 - - [10/Jun/2021 21:51:24] "GET /41 HTTP/1.1" 404 -
+172.17.0.1 - - [10/Jun/2021 21:51:53] "GET /create HTTP/1.1" 200 -
+[2021-06-10 21:52:05,868] INFO in app: STDOUT: Article "test title 6" created!
+[2021-06-10 21:52:05,868] INFO in app: Article "test title 6" created!
+[2021-06-10 21:52:05,868] INFO in app: STDERR: Article "test title 6" created!
+172.17.0.1 - - [10/Jun/2021 21:52:05] "POST /create HTTP/1.1" 302 -
+172.17.0.1 - - [10/Jun/2021 21:52:05] "GET / HTTP/1.1" 200 -
