@@ -43,6 +43,12 @@ logger = app.logger
 db_connection_count = 0
 
 
+@app.errorhandler(404)
+def page_not_found(error):
+    logger.error('Invalid URL')
+    return render_template('404.html'), 404
+
+
 # Define the main route of the web application 
 @app.route('/')
 def index():
