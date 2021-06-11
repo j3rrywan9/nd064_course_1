@@ -8,24 +8,24 @@ docker run -d -p 7111:3111 techtrends
 
 ## Docker commands used to get the application logs
 # TODO: insert the docker logs command
-docker logs -f beb75b8c626e
+docker logs -f ef6a46e1d840
 
 ## Logs from the container running the TechTrends application
 # TODO: paste logs from the Docker container 
-172.17.0.1 - - [10/Jun/2021 21:50:49] "GET / HTTP/1.1" 200 -
-172.17.0.1 - - [10/Jun/2021 21:50:49] "GET /static/css/main.css HTTP/1.1" 304 -
-172.17.0.1 - - [10/Jun/2021 21:50:49] "GET /favicon.ico HTTP/1.1" 404 -
-[2021-06-10 21:51:16,141] INFO in app: Article "2020 CNCF Annual Report" retrieved!
-[2021-06-10 21:51:16,141] INFO in app: STDOUT: Article "2020 CNCF Annual Report" retrieved!
-[2021-06-10 21:51:16,141] INFO in app: STDERR: Article "2020 CNCF Annual Report" retrieved!
-172.17.0.1 - - [10/Jun/2021 21:51:16] "GET /1 HTTP/1.1" 200 -
-[2021-06-10 21:51:24,112] INFO in app: A non-existing article is accessed
-[2021-06-10 21:51:24,112] INFO in app: STDERR: A non-existing article is accessed
-[2021-06-10 21:51:24,112] INFO in app: STDOUT: A non-existing article is accessed
-172.17.0.1 - - [10/Jun/2021 21:51:24] "GET /41 HTTP/1.1" 404 -
-172.17.0.1 - - [10/Jun/2021 21:51:53] "GET /create HTTP/1.1" 200 -
-[2021-06-10 21:52:05,868] INFO in app: STDOUT: Article "test title 6" created!
-[2021-06-10 21:52:05,868] INFO in app: Article "test title 6" created!
-[2021-06-10 21:52:05,868] INFO in app: STDERR: Article "test title 6" created!
-172.17.0.1 - - [10/Jun/2021 21:52:05] "POST /create HTTP/1.1" 302 -
-172.17.0.1 - - [10/Jun/2021 21:52:05] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [11/Jun/2021 05:22:17] "GET / HTTP/1.1" 200 -
+[2021-06-11 05:22:26,385] INFO in app: STDOUT: Article "2020 CNCF Annual Report" retrieved!
+[2021-06-11 05:22:26,385] INFO in app: Article "2020 CNCF Annual Report" retrieved!
+[2021-06-11 05:22:26,385] INFO in app: STDERR: Article "2020 CNCF Annual Report" retrieved!
+172.17.0.1 - - [11/Jun/2021 05:22:26] "GET /1 HTTP/1.1" 200 -
+[2021-06-11 05:22:45,868] INFO in app: A non-existing article is accessed
+[2021-06-11 05:22:45,868] INFO in app: STDERR: A non-existing article is accessed
+[2021-06-11 05:22:45,868] INFO in app: STDOUT: A non-existing article is accessed
+172.17.0.1 - - [11/Jun/2021 05:22:45] "GET /222 HTTP/1.1" 404 -
+[2021-06-11 05:22:53,751] INFO in app: STDOUT: The "About Us" page is retrieved.
+[2021-06-11 05:22:53,751] INFO in app: The "About Us" page is retrieved.
+[2021-06-11 05:22:53,751] INFO in app: STDERR: The "About Us" page is retrieved.
+172.17.0.1 - - [11/Jun/2021 05:22:53] "GET /about HTTP/1.1" 200 -
+[2021-06-11 05:23:24,704] ERROR in app: STDOUT: Invalid URL
+[2021-06-11 05:23:24,704] ERROR in app: Invalid URL
+[2021-06-11 05:23:24,704] ERROR in app: STDERR: Invalid URL
+172.17.0.1 - - [11/Jun/2021 05:23:24] "GET /1fdfd HTTP/1.1" 404 -
